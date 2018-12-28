@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body>
+<header th:replace="frag/nav::nav">
+</header>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Cost</th>
+                <th>Date</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="book: ${session.orderBook}">
+                <td th:text="${book.bookName}"></td>
+                <td th:text="${book.cost}"></td>
+                <td th:text="${book.creationDate}"></td>
+                <td><a class="btn btn-success" th:href="${'/delete/'+book.bookId}">Delete From Cart</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="/webjars/jquery/1.9.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>

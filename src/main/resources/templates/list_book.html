@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body>
+
+<header th:replace="frag/nav::nav">
+</header>
+
+<div class="container">
+
+
+      <!--  <h4 th:text="${session.orderBook.size()+ ' Item In Your Cart'}"></h4>-->
+
+<table class="table table-striped">
+   <h1>List Of Book</h1>
+    <thead>
+        <tr>
+            <th>Book Name</th>
+            <th>Book Author</th>
+            <th>Cost</th>
+            <th>Book Picture</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="book: ${books}">
+            <td th:text="${book.bookName}"></td>
+            <td th:text="${book.bookAuthor}"></td>
+            <td th:text="${book.cost}"></td>
+            <td><img class="img-thumbnail" style="width: 100px;height: 120px" th:src="@{'data:image/jpeg;base64,'+${book.picBase64}}"/></td>
+            <td><a class="btn btn-info"
+                   th:href="${'/delete_book/'+book.bookId}">Delete</a></td>
+            <td><a class="btn btn-danger" th:href="${'/add_to_cart/'+book.bookId}">Add To Cart</a></td>
+        </tr>
+    </tbody>
+</table>
+
+    <script src="/webjars/jquery/1.9.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</div>
+
+</body>
+</html>

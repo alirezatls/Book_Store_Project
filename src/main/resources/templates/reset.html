@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="frag/header::head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h2>Reset Your Password</h2><br>
+<form action="" method="post">
+    <fieldset class="form-group">
+        <label>Enter Your Email</label>
+        <input class="form-control" type="email" name="email" required/>
+    </fieldset>
+    <input class="btn btn-info" type="button" value="Reset Now">
+    <a class="btn btn-link" href="/register">Signin</a>
+    <a class="btn btn-link" href="/login">Login</a>
+</form>
+</div>
+<div th:replace="frag/footer::jars">
+    jquery jars
+</div>
+</body>
+</html>

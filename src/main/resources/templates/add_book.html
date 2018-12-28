@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:form="http://www.springframework.org/tags/form>" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/tags/form> ">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body>
+
+<header th:replace="frag/nav::nav">
+</header>
+
+<div class="container">
+<form method="post" action="/add_book" enctype="multipart/form-data">
+    <fieldset class="form-group">
+        <label>Book Name</label>
+        <input type="text" name="bookName" class="form-control" required>
+    </fieldset>
+    <fieldset class="form-group">
+        <label>Book Author</label>
+        <input type="text" name="bookAuthor" class="form-control" required>
+    </fieldset>
+    <fieldset class="form-group">
+        <label>Cost</label>
+        <input type="text" name="cost" class="form-control" required>
+    </fieldset>
+    <fieldset class="form-group">
+        <label>Upload Image</label>
+        <input type="file" name="bookPicture" required>
+    </fieldset>
+            <button type="submit" class="btn btn-info">Submit</button>
+            <input type="reset" class="btn btn-warning">
+
+</form>
+</div>
+<script src="/webjars/jquery/1.9.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>

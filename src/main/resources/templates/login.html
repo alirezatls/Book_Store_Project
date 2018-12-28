@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="frag/header::head">
+
+</head>
+<body>
+<div class="container">
+
+    <h2>Login</h2>
+    <h4 class="text-danger" th:text="${noAccount}"></h4>
+<form action="/perform_login" method="post">
+    <fieldset class="form-group">
+        <label>UserName</label>
+        <input class="form-control" type="text" name="userName">
+    </fieldset>
+    <fieldset class="form-group">
+        <label>Password</label>
+        <input class="form-control" type="password" name="password">
+    </fieldset>
+    <input type="submit" class="btn btn-success" value="Login"/>
+    <a class="btn btn-info" href="/register">Signin</a>
+    <a class="btn btn-link" href="/reset">Forget your Password</a>
+</form>
+    <br>
+    <p class="text-info" th:text="${activeMessage}"></p>
+</div>
+<div th:replace="frag/footer::jars">
+jquery jars
+</div>
+</body>
+</html>
