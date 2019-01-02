@@ -7,7 +7,6 @@ import java.util.Date;
 
 @Entity
 @Table(schema = "jpa")
-@Access(AccessType.PROPERTY)
 public class Book {
 
     private Integer bookId;
@@ -52,7 +51,7 @@ public class Book {
         return bookAuthor;
     }
 
-    @Transient
+    @Column(name = "book_code",nullable = false)
     public String getBookCode() {
         return bookCode;
     }

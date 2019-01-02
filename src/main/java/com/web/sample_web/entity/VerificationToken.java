@@ -5,7 +5,6 @@ import java.util.Date;
 
 @Entity
 @Table(schema = "jpa")
-@Access(AccessType.PROPERTY)
 public class VerificationToken {
 
     private Long id;
