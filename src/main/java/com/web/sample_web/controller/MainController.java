@@ -27,16 +27,17 @@ public class MainController {
     @Autowired
     CartService cartService;
 
-    @RequestMapping(value = "/",method = RequestMethod.GET)
+    @GetMapping(path = "/")
     public String showWelcomePage() {
         return "index";
     }
-    @RequestMapping(value = "/add_book",method = RequestMethod.GET)
+
+    @GetMapping(path = "/add_book)")
     public String showAddBookPage() {
         return "add_book";
     }
 
-    @RequestMapping(value = "/add_book",method = RequestMethod.POST)
+    @PostMapping(path = "/add_book")
     public String addNewBook(@RequestParam String bookName,
                              @RequestParam String bookAuthor,
                              @RequestParam String cost,
@@ -69,7 +70,7 @@ public class MainController {
         return "list_book";
     }
 
-    @RequestMapping(value = "/delete_book/{bookId}")
+    @GetMapping(path = "/delete_book/{bookId}")
     public String deleteBookFromList(@PathVariable("bookId") Integer bookId) {
         Integer state = bookDao.deleteBookById(bookId);
         if (state<=0) {
@@ -78,7 +79,7 @@ public class MainController {
         return "redirect:/list_book";
     }
 
-    @RequestMapping(value = "/add_to_cart/{bookId}")
+    @GetMapping(path = "/add_to_cart/{bookId}")
     public String addBookToCart(@PathVariable Integer bookId,
                                 ModelMap modelMap) {
 

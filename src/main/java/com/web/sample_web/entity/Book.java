@@ -51,7 +51,7 @@ public class Book {
         return bookAuthor;
     }
 
-    @Column(name = "book_code",nullable = false)
+    @Transient
     public String getBookCode() {
         return bookCode;
     }
