@@ -1,27 +1,27 @@
 package com.web.sample_web.controller;
 
+import com.web.sample_web.dao.MemberDao;
 import com.web.sample_web.entity.Book;
+import com.web.sample_web.entity.Member;
+import com.web.sample_web.exception.ActiveAccountException;
+import com.web.sample_web.exception.UsernameOrPasswordWrongException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @SessionAttributes(value = {"user"})
 public class LoginController {
 
-   // @Autowired
-  //  SecurityService securityService;
-
-  //  @Autowired
-  //  MemberDao memberDao;
-
-  //  @Autowired
-  //  BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    MemberDao memberDao;
 
 
     @GetMapping(value = "/login")
@@ -33,20 +33,24 @@ public class LoginController {
     @PostMapping(value = "/perform_login")
     public String loginToShop(@RequestParam("userName") String user,
                               @RequestParam("password") String pass,
-                              ModelMap modelMap) {
-        List<Book> books = new ArrayList<>();
-       // boolean loginValidation = securityService.login(user,pass);
-        if (true) {
-            modelMap.put("user",user);
-           // modelMap.put("orderBook",books);
-            return "index";
-        }
-        else {
-            String noAccount = "username or password is wrong";
-            modelMap.addAttribute("noAccount");
-            return "login";
-        }
+                              HttpSession session) {
 
+        Member member = memberDao.getByUserNameAndPassword(user, pass);
+
+        if(member == null) {
+            throw new UsernameOrPasswordWrongException("wrong info");
+        }
+        else if(member !=null) {
+            if(member.isEnabled()) {
+                Map<Book,Integer> cart = new HashMap<>();
+                session.setAttribute("cart",cart);
+                return "index";
+            }
+            else {
+                throw new ActiveAccountException("no Active Account");
+            }
+        }
+        else throw new IllegalStateException();
     }
 
 

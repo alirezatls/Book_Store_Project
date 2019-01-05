@@ -6,11 +6,9 @@ import com.web.sample_web.service.MemberService;
 import com.web.sample_web.util.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,9 +25,6 @@ public class RegisterController {
 
     @Autowired
     MailService mailService;
-
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     ApplicationEventPublisher eventPublisher;
@@ -55,7 +50,6 @@ public class RegisterController {
             return modelAndView;
         }
 
-            mem.setPassword(bCryptPasswordEncoder.encode(mem.getPassword()));
             Member m = memberDao.saveMember(mem);
             if (m != null) {
                 // mailService.sendEmail("alirezatl135@gmail.com","simple","from alireza");

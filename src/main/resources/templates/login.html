@@ -7,7 +7,8 @@
 <div class="container">
 
     <h2>Login</h2>
-    <h4 class="text-danger" th:text="${noAccount}"></h4>
+    <h4 class="text-danger" th:text="${wrongUser}"></h4>
+    <h4 class="text-danger" th:text="${activeUser}"></h4>
 <form action="/perform_login" method="post">
     <fieldset class="form-group">
         <label>UserName</label>

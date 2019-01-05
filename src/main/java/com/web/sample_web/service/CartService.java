@@ -7,11 +7,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-@Service
-public class CartService {
 
-    private static List<Book> books = null;
+public interface CartService {
+
+
+    void addBook(Book book, Map<Book,Integer> map);
+
+    void removeBook(Book book,Map<Book,Integer> map);
+
+    Book exist(int id,Map<Book,Integer> map);
 
 
 }

@@ -5,8 +5,6 @@ import com.web.sample_web.dao.MemberDao;
 import com.web.sample_web.entity.Book;
 import com.web.sample_web.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -29,15 +27,9 @@ public class MainController {
     @Autowired
     CartService cartService;
 
-    @RequestMapping(value = "/context",method = RequestMethod.GET)
-    public String showWelcomePage(ModelMap modelMap) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            String username = ((UserDetails) principal).getUsername();
-            modelMap.put("user",username);
-            return "index";
-        }
-        throw new IllegalStateException();
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    public String showWelcomePage() {
+        return "index";
     }
     @RequestMapping(value = "/add_book",method = RequestMethod.GET)
     public String showAddBookPage() {
