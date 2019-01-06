@@ -2,6 +2,7 @@ package com.web.sample_web.controller;
 
 import com.web.sample_web.dao.MemberDao;
 import com.web.sample_web.entity.Member;
+import com.web.sample_web.exception.UniqueUsernameException;
 import com.web.sample_web.service.MemberService;
 import com.web.sample_web.util.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,8 @@ public class RegisterController {
             return modelAndView;
         }
 
+        Member userName = memberDao.getByUserName(mem.getUserName());
+        if(userName == null) {
             Member m = memberDao.saveMember(mem);
             if (m != null) {
                 // mailService.sendEmail("alirezatl135@gmail.com","simple","from alireza");
@@ -75,6 +78,11 @@ public class RegisterController {
 
                 modelAndView.setViewName("confirm_registration");
             }
+        } else {
+            throw new UniqueUsernameException();
+        }
+
+
             return modelAndView;
     }
 
