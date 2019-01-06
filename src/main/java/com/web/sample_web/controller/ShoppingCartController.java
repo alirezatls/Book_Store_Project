@@ -5,10 +5,7 @@ import com.web.sample_web.entity.Book;
 import com.web.sample_web.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -32,7 +29,7 @@ public class ShoppingCartController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "cart/add/{bookId}")
+    @GetMapping(path = "cart/add/{bookId}")
     public ModelAndView addBookToCart(@PathVariable Integer bookId, HttpSession session) {
         Book book = bookDao.getBookById(bookId);
         if (session.getAttribute("orderBook") == null) {

@@ -17,20 +17,20 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@SessionAttributes(value = {"user"})
+//@SessionAttributes(value = {"user"})
 public class LoginController {
 
     @Autowired
     MemberDao memberDao;
 
 
-    @GetMapping(value = "/login")
+    @GetMapping(path = "/login")
     public String showLoginPage() {
         return "login";
     }
 
 
-    @PostMapping(value = "/perform_login")
+    @PostMapping(path = "/performLogin")
     public String loginToShop(@RequestParam("userName") String user,
                               @RequestParam("password") String pass,
                               HttpSession session) {

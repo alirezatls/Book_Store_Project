@@ -21,11 +21,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="book: ${session.orderBook}">
-                <td th:text="${book.bookName}"></td>
-                <td th:text="${book.cost}"></td>
-                <td th:text="${book.creationDate}"></td>
-                <td><a class="btn btn-success" th:href="${'/delete/'+book.bookId}">Delete From Cart</a></td>
+            <tr th:each="book: ${session.orderBook.entrySet()}">
+                <td th:text="${book.getKey().bookName}"></td>
+                <td th:text="${book.getKey().cost}"></td>
+                <td th:text="${book.getValue()}"></td>
+                <td><a class="btn btn-success" th:href="${'/cart/remove/'+book.getKey().bookId}">Delete From Cart</a></td>
             </tr>
         </tbody>
     </table>

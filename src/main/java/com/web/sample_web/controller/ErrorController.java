@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller("/error")
-//@ControllerAdvice
+@ControllerAdvice
 public class ErrorController {
 
     @ExceptionHandler(UsernameOrPasswordWrongException.class)

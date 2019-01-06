@@ -9,14 +9,14 @@
     <h2>Login</h2>
     <h4 class="text-danger" th:text="${wrongUser}"></h4>
     <h4 class="text-danger" th:text="${activeUser}"></h4>
-<form action="/perform_login" method="post">
+<form action="/performLogin" method="post">
     <fieldset class="form-group">
         <label>UserName</label>
-        <input class="form-control" type="text" name="userName">
+        <input class="form-control" type="text" name="userName" required>
     </fieldset>
     <fieldset class="form-group">
         <label>Password</label>
-        <input class="form-control" type="password" name="password">
+        <input class="form-control" type="password" name="password" required>
     </fieldset>
     <input type="submit" class="btn btn-success" value="Login"/>
     <a class="btn btn-info" href="/register">Signin</a>

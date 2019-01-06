@@ -7,7 +7,7 @@
 <body>
 <div class="container">
     <h2>Register</h2>
-    <form action="/perform_register" th:action="@{/perform_register}" th:object="${mem}" method="post">
+    <form action="/performRegister" th:action="@{/performRegister}" th:object="${mem}" method="post">
         <fieldset class="form-group">
             <label>Full Name</label>
             <input type="text" th:field="*{fullName}" class="form-control" name="fullName"  required>

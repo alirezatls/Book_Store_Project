@@ -38,7 +38,7 @@ public class RegisterController {
         return "register";
     }
 
-    @PostMapping(value = "/perform_register")
+    @PostMapping(value = "/performRegister")
     public ModelAndView addNewMember(@ModelAttribute("mem") @Valid Member mem,
                                      BindingResult result,
                                      WebRequest request,
