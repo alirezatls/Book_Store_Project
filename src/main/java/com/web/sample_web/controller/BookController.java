@@ -3,6 +3,7 @@ package com.web.sample_web.controller;
 import com.web.sample_web.dao.BookDao;
 import com.web.sample_web.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ public class BookController {
     BookDao bookDao;
 
     @GetMapping(path = "/addBookPage")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String showBookForm() {
 
         return "add_book";
@@ -47,6 +49,7 @@ public class BookController {
     }
 
     @GetMapping(path = "/books")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public String showListOfBookPage(ModelMap modelMap) {
         List<Book> books = bookDao.getAllBook();
         String format = "data:image/png;base64";
@@ -58,6 +61,7 @@ public class BookController {
     }
 
     @GetMapping(path = "/deleteBook/{bookId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteBookFromList(@PathVariable("bookId") Integer bookId) {
         Integer state = bookDao.deleteBookById(bookId);
         if (state<=0) {
