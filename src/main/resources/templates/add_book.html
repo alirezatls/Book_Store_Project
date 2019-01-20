@@ -11,7 +11,7 @@
 <body>
 
 <header th:replace="frag/nav::nav">
-</header>
+</header><br><br><br>
 
 <div class="container">
 <form method="post" action="/addBookPerform" enctype="multipart/form-data">
@@ -28,8 +28,8 @@
         <input type="text" name="cost" class="form-control" required>
     </fieldset>
     <fieldset class="form-group">
-        <label>Upload Image</label>
-        <input type="file" name="bookPicture" required>
+        <label class="custom-file">Upload Image</label>
+        <input  type="file" name="bookPicture" required>
     </fieldset>
             <button type="submit" class="btn btn-info">Submit</button>
             <input type="reset" class="btn btn-warning">

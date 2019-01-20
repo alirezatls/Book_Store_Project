@@ -8,31 +8,35 @@
 </head>
 <body>
 
-<header th:replace="frag/nav::nav">
-</header>
+
 
 <div class="container">
-
+    <header th:replace="frag/nav::nav">
+    </header><br><br><br>
+    <p class="h3">List Of Books</p>
+    <hr class="h-25">
+    <p class="text-info">you can add your product to you cart.just select add</p>
     <div class="row">
         <div class="col-sm-3" th:each="book: ${books}">
 
             <div class="card">
-                <img th:src="@{'data:image/jpeg;base64,'+${book.picBase64}}" class="img-fluid card-img-top  img-thumbnail"  style="width: 200px;height: 120px">
+                <img th:src="@{'data:image/jpeg;base64,'+${book.picBase64}}" class="img-fluid card-img-top  img-thumbnail"  style="height: 220px">
                 <div class="card-body">
                     <div th:text="${book.bookName}" class="card-title h4">Book Name</div>
                     <div th:text="${'Price: '+book.cost}" class="card-text">Some Information
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-success" th:href="${'/cart/add/'+book.bookId}">Add To Cart</a>
+                    <a class="btn btn-primary" th:href="${'/cart/add/'+book.bookId}">Add To Cart</a>
                     <a class="btn btn-danger"
                        th:href="${'/deleteBook/'+book.bookId}">Delete</a>
                 </div>
 
             </div>
-
+            <hr class="h-25">
         </div>
     </div>
+
 
 </div>
 <script src="/webjars/jquery/1.9.1/jquery.min.js"></script>
