@@ -11,6 +11,7 @@ public class LogoutController {
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
-      return "";
+
+        return "login";
     }
 }

@@ -23,19 +23,10 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
     private MemberUserDetailsService userDetailsService;
 
     @Bean
-    public GrantedAuthoritiesMapper grantedAuthoritiesMapper() {
-        SimpleAuthorityMapper authorityMapper = new SimpleAuthorityMapper();
-        authorityMapper.setConvertToUpperCase(true);
-        authorityMapper.setDefaultAuthority("USER");
-        return authorityMapper;
-    }
-
-    @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(new BCryptPasswordEncoder(11));
-        provider.setAuthoritiesMapper(grantedAuthoritiesMapper());
         return provider;
     }
 
@@ -44,9 +35,11 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/css/*","/js/*","/login","/register",
-                        "/performRegister","/regitrationConfirm","/performLogin").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().permitAll()
+                .and()
+                .logout().invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutSuccessUrl("/login");
 
     }
 

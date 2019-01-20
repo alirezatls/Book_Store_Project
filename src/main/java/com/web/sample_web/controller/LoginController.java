@@ -9,12 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.RequestScope;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 //@SessionAttributes(value = {"user"})
@@ -31,10 +29,9 @@ public class LoginController {
 
 
     @PostMapping(path = "/performLogin")
-    public String loginToShop(@RequestParam("userName") String user,
+    public String loginToShop(@RequestParam("userName")  String user,
                               @RequestParam("password") String pass,
                               HttpSession session) {
-
         Member member = memberDao.getByUserNameAndPassword(user, pass);
 
         if(member == null) {

@@ -20,7 +20,6 @@ public class BookController {
     BookDao bookDao;
 
     @GetMapping(path = "/addBookPage")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String showBookForm() {
 
         return "add_book";
@@ -49,7 +48,6 @@ public class BookController {
     }
 
     @GetMapping(path = "/books")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public String showListOfBookPage(ModelMap modelMap) {
         List<Book> books = bookDao.getAllBook();
         String format = "data:image/png;base64";
@@ -61,7 +59,6 @@ public class BookController {
     }
 
     @GetMapping(path = "/deleteBook/{bookId}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteBookFromList(@PathVariable("bookId") Integer bookId) {
         Integer state = bookDao.deleteBookById(bookId);
         if (state<=0) {
