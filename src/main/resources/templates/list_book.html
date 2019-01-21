@@ -20,7 +20,7 @@
         <div class="col-sm-3" th:each="book: ${books}">
 
             <div class="card">
-                <img th:src="@{'data:image/jpeg;base64,'+${book.picBase64}}" class="img-fluid card-img-top  img-thumbnail"  style="height: 220px">
+                <img th:src="@{'data:image/jpeg;base64,'+${book.picBase64}}" class="img-fluid card-img-top  img-thumbnail rounded"  style="height: 220px">
                 <div class="card-body">
                     <div th:text="${book.bookName}" class="card-title h4">Book Name</div>
                     <div th:text="${'Price: '+book.cost}" class="card-text">Some Information
@@ -39,7 +39,7 @@
 
 
 </div>
-<script src="/webjars/jquery/1.9.1/jquery.min.js"></script>
+<script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
 <script src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 </body>
