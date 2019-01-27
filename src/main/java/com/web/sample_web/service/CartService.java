@@ -19,5 +19,6 @@ public interface CartService {
 
     Book exist(int id,Map<Book,Integer> map);
 
+     Integer totalPrice();
 
 }

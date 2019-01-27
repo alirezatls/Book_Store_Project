@@ -3,7 +3,10 @@ package com.web.sample_web.entity;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(schema = "jpa")
@@ -17,7 +20,13 @@ public class Book {
 
     private String bookCode;
 
-    private String cost;
+    private Long cost;
+
+    private String publisher;
+
+    private Integer pageNumber;
+
+    private String details;
 
     private byte[] bookPicture;
 
@@ -25,10 +34,13 @@ public class Book {
 
     private Date creationDate;
 
+    private List<Comment> comments;
+
     public Book() {
+        this.bookCode = UUID.randomUUID().toString();
     }
 
-    public Book(String bookName, String bookAuthor, String bookCode, String cost) {
+    public Book(String bookName, String bookAuthor, String bookCode, Long cost) {
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookCode = bookCode;
@@ -51,14 +63,30 @@ public class Book {
         return bookAuthor;
     }
 
-    @Transient
+    @Column(name = "bookCode")
     public String getBookCode() {
         return bookCode;
     }
 
-    @Column(name = "book_cost",nullable = false)
-    public String getCost() {
+    @Column(name = "book_cost",nullable = false,columnDefinition = "numeric")
+    public Long getCost() {
         return cost;
+    }
+
+    @Column(name = "publisher")
+    public String getPublisher() {
+        return publisher;
+    }
+
+    @Column(name = "pageNumber",columnDefinition = "numeric")
+    public Integer getPageNumber() {
+        return pageNumber;
+    }
+
+    @Lob
+    @Column(name = "detalis")
+    public String getDetails() {
+        return details;
     }
 
     @Lob
@@ -78,6 +106,11 @@ public class Book {
         return creationDate;
     }
 
+    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
+    public List<Comment> getComments() {
+        return comments;
+    }
+
     public void setBookId(Integer bookId) {
         this.bookId = bookId;
     }
@@ -94,8 +127,20 @@ public class Book {
         this.bookCode = bookCode;
     }
 
-    public void setCost(String cost) {
+    public void setCost(Long cost) {
         this.cost = cost;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setPageNumber(Integer pageNumber) {
+        this.pageNumber = pageNumber;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     public void setBookPicture(byte[] bookPicture) {
@@ -108,6 +153,10 @@ public class Book {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }
 

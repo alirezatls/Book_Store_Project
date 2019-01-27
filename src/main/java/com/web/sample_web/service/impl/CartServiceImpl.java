@@ -39,4 +39,9 @@ public class CartServiceImpl implements CartService {
         return null;
     }
 
+    @Override
+    public Integer totalPrice() {
+        return null;
+    }
+
 }

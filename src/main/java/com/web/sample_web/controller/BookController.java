@@ -28,13 +28,19 @@ public class BookController {
     @PostMapping(path = "/addBookPerform")
     public String addToBookStore(@RequestParam String bookName,
                              @RequestParam String bookAuthor,
-                             @RequestParam String cost,
+                             @RequestParam Long cost,
+                             @RequestParam String publisher,
+                             @RequestParam Integer pageNumber,
+                             @RequestParam String txt,
                              @RequestParam(name = "bookPicture") MultipartFile file) {
         try {
             Book book = new Book();
             book.setBookName(bookName);
             book.setBookAuthor(bookAuthor);
             book.setCost(cost);
+            book.setPublisher(publisher);
+            book.setPageNumber(pageNumber);
+            book.setDetails(txt);
             book.setBookPicture(file.getBytes());
             Book saveBook = bookDao.saveBook(book);
             if(saveBook == null) {

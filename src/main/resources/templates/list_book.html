@@ -13,17 +13,31 @@
 <div class="container">
     <header th:replace="frag/nav::nav">
     </header><br><br><br>
-    <p class="h3">List Of Books</p>
+    <div class="row">
+        <div class="col-lg-6 col-sm-10">
+            <p class="h3">List Of Books</p>
+        </div>
+        <div class="col-lg-6 col-sm-10">
+            <form>
+                <div class="form-group row">
+                    <label class="col-lg-4 col-md-4 col-sm-4 font-weight-bold">Search Product</label>
+                    <input class="form-control col-lg-8 col-md-8 col-sm-8" type="search" placeholder="serach for your pruduct..." name="key"/>
+                </div>
+            </form>
+        </div>
+    </div>
     <hr class="h-25">
     <p class="text-info">you can add your product to you cart.just select add</p>
     <div class="row">
-        <div class="col-sm-3" th:each="book: ${books}">
+        <div class="col-lg-3 col-md-6 col-sm" th:each="book: ${books}">
 
-            <div class="card">
-                <img th:src="@{'data:image/jpeg;base64,'+${book.picBase64}}" class="img-fluid card-img-top  img-thumbnail rounded"  style="height: 220px">
+            <div class="card shadow">
+                <a th:href="${'/books/'+book.bookCode}">
+                <img th:src="@{'data:image/jpeg;base64,'+${book.picBase64}}" class="img-fluid card-img-top  img-thumbnail"  style="height: 220px;width: 200px">
+                </a>
                 <div class="card-body">
                     <div th:text="${book.bookName}" class="card-title h4">Book Name</div>
-                    <div th:text="${'Price: '+book.cost}" class="card-text">Some Information
+                    <div th:text="${'Price: '+book.cost+' $'}" class="card-text">Some Information
                     </div>
                 </div>
                 <div class="card-footer">

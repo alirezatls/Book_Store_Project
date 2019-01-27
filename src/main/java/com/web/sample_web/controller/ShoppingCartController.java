@@ -30,7 +30,7 @@ public class ShoppingCartController {
     }
 
     @GetMapping(path = "cart/add/{bookId}")
-    public ModelAndView addBookToCart(@PathVariable Integer bookId, HttpSession session) {
+    public String addBookToCart(@PathVariable Integer bookId, HttpSession session) {
         Book book = bookDao.getBookById(bookId);
         if (session.getAttribute("orderBook") == null) {
             Map<Book, Integer> map = new HashMap<>();
@@ -40,7 +40,7 @@ public class ShoppingCartController {
             Map<Book, Integer> map = (HashMap<Book, Integer>) session.getAttribute("orderBook");
             cartService.addBook(book,map);
         }
-        return showMyCart();
+        return "redirect:/books/"+book.getBookCode();
     }
 
 
