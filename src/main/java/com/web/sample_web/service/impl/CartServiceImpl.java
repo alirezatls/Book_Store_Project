@@ -10,6 +10,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void addBook(Book b,Map<Book,Integer> cart) {
+
         Book exist = exist(b.getBookId(), cart);
         if(exist == null) {
             cart.put(b,1);
@@ -30,6 +31,8 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Book exist(int id, Map<Book, Integer> map) {
+
+
         boolean state = false;
         for (Map.Entry<Book,Integer> entry: map.entrySet()) {
             if(entry.getKey().getBookId() == id) {

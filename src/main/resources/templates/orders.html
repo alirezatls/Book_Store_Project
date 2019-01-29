@@ -11,24 +11,46 @@
 </header><br><br><br>
 
 <div class="container">
-    <table class="table table-striped">
+    <div th:if="${count eq 0}" class="shadow">
+        <br>
+        <div class="card-body" style="background-color:  #d2dbd2 ">
+            <p class="h4">your cart is empty..  <a href="/books">choose your product</a></p>
+        </div>
+    </div>
+    <br>
+    <table th:if="${count ne 0}" class="table table-striped shadow">
+        <p class="font-weight-bold h4">Cart</p>
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Cost</th>
-                <th>Number</th>
+                <th>Price</th>
+                <th>Code</th>
                 <th>Delete</th>
             </tr>
         </thead>
-        <tbody>
-            <tr th:each="book: ${session.orderBook.entrySet()}">
-                <td th:text="${book.getKey().bookName}"></td>
-                <td th:text="${book.getKey().cost}"></td>
-                <td th:text="${book.getValue()}"></td>
-                <td><a class="btn btn-success" th:href="${'/cart/remove/'+book.getKey().bookId}">Delete From Cart</a></td>
+        <tbody th:if="${session.orderBook ne null}">
+            <tr th:each="book: ${session.orderBook}">
+                <td th:text="${book.bookName}"></td>
+                <td th:text="${book.bookCode}"></td>
+                <td th:text="${book.cost+' $'}"></td>
+                <td><a class="btn btn-outline-primary" th:href="${'/cart/remove/'+book.bookId}">Delete From Cart</a></td>
             </tr>
         </tbody>
     </table>
+    <div class="card w-25" th:if="${total ne 0}">
+        <div class="card-body">
+            <div class="card-text">
+                <span class="font-weight-bold h5 text-primary" th:text="${'Numbers: '+count}"></span>
+            </div>
+            <div class="card-text">
+                <span class="font-weight-bold h5 text-primary" th:text="${'Total Price: '+total+' $'}"></span>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a href="#" class="btn btn-primary">Pay It Now</a>
+        </div>
+    </div>
+
 </div>
 
 <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
