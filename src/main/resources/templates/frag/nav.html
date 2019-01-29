@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<nav th:fragment="nav" class="navbar fixed-top navbar-light navbar-expand-sm" style="background-color: #65aa8c" data-toggle="collapse" data-target="#myNav">
+<nav th:fragment="nav" class="navbar navbar-light navbar-expand-sm" style="background-color: #65aa8c" data-toggle="collapse" data-target="#myNav">
 
     <button class="navbar-toggler" type="button">
         <span class="navbar-toggler-icon"></span>
@@ -25,6 +25,37 @@
     </ul>
     <a href="/logout" class="btn btn-warning">Logout</a>
     <a href="/cart" class="btn btn-primary">Cart</a>
+    <button class="btn btn-danger" data-toggle="modal" data-target="#myMod">Login</button>
+
+    <div id="myMod" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Login</h3>
+                    <button class="btn btn-success" type="button" data-dismiss="modal">X</button>
+                </div>
+                <div class="modal-body">
+                    <form action="/performLogin" method="post">
+                        <fieldset class="form-group row">
+                            <label class="col-sm-2">UserName</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" name="userName" required>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group row">
+                            <label class="col-sm-2">Password</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="password" name="password" required>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="Login"/>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </nav>
 </body>

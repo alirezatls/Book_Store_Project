@@ -7,9 +7,15 @@
           rel="stylesheet">
 </head>
 <body>
+<header th:replace="frag/nav::nav">
+</header><br><br><br>
 <div class="container">
-    <header th:replace="frag/nav::nav">
-    </header><br><br><br>
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert">
+            <span>X</span>
+        </button>
+        <p>Product Added To Your Cart Successfully</p>
+    </div>
 
     <div class="card" th:object="${bookDetail}">
         <div class="card-header">
@@ -34,7 +40,7 @@
                 <p th:text="${'Page Numbers: '+bookDetail.pageNumber}"></p>
             </div>
             <div class="card-subtitle col-sm-12">
-                <p th:text="${bookDetail.details}"></p>
+                <p class="lead" th:text="${bookDetail.details}"></p>
             </div>
                 <div class="h4 text-danger col-sm-12">
                     <p th:text="${'Price: '+bookDetail.cost+' $'}"></p>
