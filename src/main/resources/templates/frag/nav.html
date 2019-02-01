@@ -31,27 +31,26 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Login</h3>
+                    <img style="height: 250px;margin:0 auto;border-radius: 200px" class="img-fluid justify-content-center" src="../../static/images/avatar.png" th:src="@{images/avatar.png}"/>
                     <button class="btn btn-success" type="button" data-dismiss="modal">X</button>
                 </div>
                 <div class="modal-body">
                     <form action="/performLogin" method="post">
                         <fieldset class="form-group row">
                             <label class="col-sm-2">UserName</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" name="userName" required>
+                            <div class="col-sm-12">
+                                <input class="form-control" placeholder="Enter Username" type="text" name="userName" required>
                             </div>
                         </fieldset>
                         <fieldset class="form-group row">
                             <label class="col-sm-2">Password</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="password" name="password" required>
+                            <div class="col-sm-12">
+                                <input class="form-control" placeholder="Enter Password" type="password" name="password" required>
                             </div>
                         </fieldset>
+                        <input type="submit" class="btn btn-success" value="Login"/>
+                        <a class="btn btn-link" href="#">Forgot password</a>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <input type="submit" class="btn btn-success" value="Login"/>
                 </div>
             </div>
         </div>

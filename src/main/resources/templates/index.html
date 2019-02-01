@@ -9,42 +9,49 @@
 <body>
 <header th:replace="frag/nav::nav">
 </header>
-<div class="container-fluid">
-    <div id="car1" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="../static/images/pic1.jpg" th:src="@{images/pic1.jpg}" style="width: 100%;height: 600px" class="img-fluid rounded" alt="pic1">
-            </div>
 
-            <div class="carousel-item">
-                <img src="../static/images/pic2.jpg" th:src="@{images/pic2.jpg}" style="width: 100%;height: 600px" class="img-fluid" alt="pic1">
-            </div>
-
-            <div class="carousel-item">
-                <img src="../static/images/pic3.jpg" th:src="@{images/pic3.jpg}" style="width: 100%;height: 600px" class="img-fluid" alt="pic1">
-            </div>
-
-            <div class="carousel-item">
-                <img src="../static/images/pic4.jpg" th:src="@{images/pic4.jpg}" style="width: 100%;height: 600px" class="img-fluid" alt="pic1">
-            </div>
+<div id="car1" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="../static/images/pic1.jpg" th:src="@{images/pic1.jpg}" style="width: 100%;height: 600px" class="img-fluid" alt="pic1">
         </div>
 
-        <a href="#car1" class="carousel-control-prev" data-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-            <span class="sr-only">previous</span>
-        </a>
+        <div class="carousel-item">
+            <img src="../static/images/pic2.jpg" th:src="@{images/pic2.jpg}" style="width: 100%;height: 600px" class="img-fluid" alt="pic1">
+        </div>
 
-        <a href="#car1" class="carousel-control-next" data-slide="next">
-            <span class="carousel-control-next-icon"></span>
-            <span class="sr-only">next</span>
-        </a>
+        <div class="carousel-item">
+            <img src="../static/images/pic3.jpg" th:src="@{images/pic3.jpg}" style="width: 100%;height: 600px" class="img-fluid" alt="pic1">
+        </div>
+
+        <div class="carousel-item">
+            <img src="../static/images/pic4.jpg" th:src="@{images/pic4.jpg}" style="width: 100%;height: 600px" class="img-fluid" alt="pic1">
+        </div>
     </div>
+
+    <a href="#car1" class="carousel-control-prev" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+        <span class="sr-only">previous</span>
+    </a>
+
+    <a href="#car1" class="carousel-control-next" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+        <span class="sr-only">next</span>
+    </a>
+</div>
+
+
+<div class="jumbotron jumbotron-fluid">
+    <h1 class="display-3 text-center">Welcome To Shop</h1>
+    <p class="lead text-center">Buy your product easily and enjoy</p>
+    <hr class="my-5">
+    <a  href="/addBookPage">Add New Book</a>
+    <a  href="/books">List Of Books</a>
+    <a href="/cart">My Cart</a>
+</div>
+<div class="container-fluid">
 <hr class="h-25">
 
-    <p class="h1">About Shop</p>
-    <a href="/addBookPage">Add New Book</a><br>
-    <a href="/books">List Of Books</a><br>
-    <a href="/cart">My Cart</a>
 </div>
 <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
 <script src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
