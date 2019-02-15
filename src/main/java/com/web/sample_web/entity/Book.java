@@ -11,29 +11,45 @@ import java.util.UUID;
 @Entity
 @Table(schema = "jpa")
 public class Book {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bookId;
 
+    @Column(name = "book_name",nullable = false)
     private String bookName;
 
+    @Column(name = "book_author",nullable = false)
     private String bookAuthor;
 
+    @Column(name = "bookCode")
     private String bookCode;
 
+    @Column(name = "book_cost",nullable = false,columnDefinition = "numeric")
     private Long cost;
 
+    @Column(name = "publisher")
     private String publisher;
 
+    @Column(name = "pageNumber",columnDefinition = "numeric")
     private Integer pageNumber;
 
+    @Lob
+    @Column(name = "detalis")
     private String details;
 
+    @Lob
+    @Column(name = "book_picture")
     private byte[] bookPicture;
 
+    @Transient
     private String picBase64;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_date")
     private Date creationDate;
 
+    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     public Book() {
@@ -47,112 +63,96 @@ public class Book {
         this.cost = cost;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getBookId() {
         return bookId;
-    }
-
-    @Column(name = "book_name",nullable = false)
-    public String getBookName() {
-        return bookName;
-    }
-
-    @Column(name = "book_author",nullable = false)
-    public String getBookAuthor() {
-        return bookAuthor;
-    }
-
-    @Column(name = "bookCode")
-    public String getBookCode() {
-        return bookCode;
-    }
-
-    @Column(name = "book_cost",nullable = false,columnDefinition = "numeric")
-    public Long getCost() {
-        return cost;
-    }
-
-    @Column(name = "publisher")
-    public String getPublisher() {
-        return publisher;
-    }
-
-    @Column(name = "pageNumber",columnDefinition = "numeric")
-    public Integer getPageNumber() {
-        return pageNumber;
-    }
-
-    @Lob
-    @Column(name = "detalis")
-    public String getDetails() {
-        return details;
-    }
-
-    @Lob
-    @Column(name = "book_picture")
-    public byte[] getBookPicture() {
-        return bookPicture;
-    }
-
-    @Transient
-    public String getPicBase64() {
-        return picBase64;
-    }
-
-    @CreationTimestamp @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "creation_date")
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    public List<Comment> getComments() {
-        return comments;
     }
 
     public void setBookId(Integer bookId) {
         this.bookId = bookId;
     }
 
+    public String getBookName() {
+        return bookName;
+    }
+
     public void setBookName(String bookName) {
         this.bookName = bookName;
+    }
+
+    public String getBookAuthor() {
+        return bookAuthor;
     }
 
     public void setBookAuthor(String bookAuthor) {
         this.bookAuthor = bookAuthor;
     }
 
+    public String getBookCode() {
+        return bookCode;
+    }
+
     public void setBookCode(String bookCode) {
         this.bookCode = bookCode;
+    }
+
+    public Long getCost() {
+        return cost;
     }
 
     public void setCost(Long cost) {
         this.cost = cost;
     }
 
+    public String getPublisher() {
+        return publisher;
+    }
+
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public Integer getPageNumber() {
+        return pageNumber;
     }
 
     public void setPageNumber(Integer pageNumber) {
         this.pageNumber = pageNumber;
     }
 
+    public String getDetails() {
+        return details;
+    }
+
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public byte[] getBookPicture() {
+        return bookPicture;
     }
 
     public void setBookPicture(byte[] bookPicture) {
         this.bookPicture = bookPicture;
     }
 
+    public String getPicBase64() {
+        return picBase64;
+    }
+
     public void setPicBase64(String picBase64) {
         this.picBase64 = picBase64;
     }
 
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
     }
 
     public void setComments(List<Comment> comments) {

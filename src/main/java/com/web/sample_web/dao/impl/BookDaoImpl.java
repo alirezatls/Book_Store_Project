@@ -44,9 +44,8 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    @Transactional
-    public Integer deleteBookById(int id) {
-       return bookRepository.deleteByBookId(id);
+    public int deleteBookByBookCode(String code) {
+        return bookRepository.deleteBookByBookCode(code);
     }
 
     @Override

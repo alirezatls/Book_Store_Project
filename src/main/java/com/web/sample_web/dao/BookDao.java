@@ -17,7 +17,7 @@ public interface BookDao {
 
     Page<Book> getAllBookPagination(Pageable pageable);
 
-    Integer deleteBookById(int id);
+    int deleteBookByBookCode(String code);
 
     Long bookCount();
 

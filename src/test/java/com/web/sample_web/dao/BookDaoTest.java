@@ -41,8 +41,8 @@ public class BookDaoTest {
 
     @Test
     public void testDeleteBookById() {
-        Integer integer = bookDao.deleteBookById(3);
-        Assert.assertEquals(true, integer>0);
+       // Integer integer = bookDao.deleteBookById(3);
+      //  Assert.assertEquals(true, integer>0);
     }
 
 }

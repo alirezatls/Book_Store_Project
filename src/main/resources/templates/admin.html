@@ -24,7 +24,7 @@
                 <th>PICTURE</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="lead">
             <tr th:each="book: ${page.getContent()}">
                 <td th:text="${book.bookName}"></td>
                 <td th:text="${book.bookAuthor}"></td>
@@ -35,90 +35,11 @@
                     <img th:src="@{'data:image/jpeg;base64,'+${book.picBase64}}" class="img-fluid img-thumbnail"  style="height: 100px;width: 80px">
                 </td>
                 <td>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#box">Delete</button>
-                    <div id="box" class="modal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button class="btn btn-success" type="button" data-dismiss="modal">X</button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="alert alert-danger">
-                                        <p> Are You Want To Delete A Book?</p>
-                                    </div>
-                                    <a class="float-right btn btn-danger" th:href="${'/deleteBook/'+book.bookId}">Delete It</a>
-                                    <button class="btn btn-outline-danger float-left" type="button" data-dismiss="modal">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <a class="float-right btn btn-danger" th:href="@{'/deleteBook/'+${book.bookCode}}">Delete It</a>
                 </td>
 
                 <td>
-                    <button class="btn btn-outline-success" data-toggle="modal" data-target="#myMod">Update</button>
-
-                    <div id="myMod" class="modal fade">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button class="btn btn-success" type="button" data-dismiss="modal">X</button>
-                                </div>
-                                <div class="modal-body" th:object="${page.getContent()}">
-                                    <form method="post" action="/addBookPerform" enctype="multipart/form-data">
-                                        <fieldset class="form-group row">
-                                            <label class="col-sm-2">Book Name</label>
-                                            <div class="col-sm-8">
-                                                <input th:value="${book.bookName}" type="text" name="bookName" class="form-control" required>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset class="form-group row">
-                                            <label class="col-sm-2">Book Author</label>
-                                            <div class="col-sm-8">
-                                                <input th:value="${book.bookAuthor}" type="text" name="bookAuthor" class="form-control" required>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset class="form-group row">
-                                            <label  class="col-sm-2">Price</label>
-                                            <div class="col-sm-8">
-                                                <input th:value="${book.cost}" type="number" name="cost" class="form-control" required>
-                                            </div>
-                                        </fieldset>
-
-                                        <fieldset class="form-group row">
-                                            <label class="col-sm-2">Publisher</label>
-                                            <div class="col-sm-8">
-                                                <input th:value="${book.publisher}" type="text" name="publisher" class="form-control" required>
-                                            </div>
-                                        </fieldset>
-
-                                        <fieldset class="form-group row">
-                                            <label class="col-sm-2">Page Numbers</label>
-                                            <div class="col-sm-8">
-                                                <input th:value="${book.pageNumber}" type="number" name="pageNumber" class="form-control" required>
-                                            </div>
-                                        </fieldset>
-
-                                        <fieldset class="form-group row">
-                                            <label class="custom-file col-sm-2">Upload Image</label>
-                                            <input th:value="${book.bookPicture}" type="file" name="bookPicture" required>
-                                        </fieldset>
-
-                                        <fieldset class="form-group row">
-                                            <label class="col-sm-2">Details</label>
-                                            <div class="col-sm-8">
-                                                <textarea th:text="${book.details}" class="form-control" name="txt" placeholder="product informations .."></textarea>
-                                            </div>
-                                        </fieldset>
-
-                                        <button type="submit" class="btn btn-info">Submit</button>
-                                        <input type="reset" class="btn btn-warning">
-
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <a class="btn btn-outline-success" th:href="@{'/updateBook/'+${book.bookCode}}">Update</a>
                 </td>
             </tr>
         </tbody>
