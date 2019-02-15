@@ -30,7 +30,23 @@
                 <td th:text="${book.bookName}"></td>
                 <td th:text="${book.bookCode}"></td>
                 <td th:text="${book.cost+' $'}"></td>
-                <td><a class="btn btn-outline-primary" th:href="${'/cart/remove/'+book.bookId}">Delete From Cart</a></td>
+                <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#box">Delete From Cart</button></td>
+                <div id="box" class="modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button class="btn btn-success" type="button" data-dismiss="modal">X</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="alert alert-info">
+                                    <p>Are You Sure?</p>
+                                </div>
+                                <a class="btn btn-primary float-right" th:href="${'/cart/remove/'+book.bookId}">Delete</a>
+                                <button class="btn btn-outline-primary float-left" type="button" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </tr>
         </tbody>
     </table>

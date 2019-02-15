@@ -23,7 +23,7 @@ public class Comment {
     @CreationTimestamp
     private Date date;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
     private Book book;
 

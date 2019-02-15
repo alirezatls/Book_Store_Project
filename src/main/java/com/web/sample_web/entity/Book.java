@@ -106,7 +106,7 @@ public class Book {
         return creationDate;
     }
 
-    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     public List<Comment> getComments() {
         return comments;
     }

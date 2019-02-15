@@ -3,6 +3,7 @@ package com.web.sample_web.controller;
 import com.web.sample_web.dao.BookDao;
 import com.web.sample_web.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ public class DetailsBookController {
     BookDao bookDao;
 
     @GetMapping(path = "/books/{bookCode}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public String showBookDetails(@PathVariable String bookCode, ModelMap modelMap, HttpSession session) {
         List<Book> orderBook = (List<Book>)session.getAttribute("orderBook");
         Book bookDetail = bookDao.getByBookCode(bookCode);

@@ -2,9 +2,11 @@ package com.web.sample_web.dao.impl;
 
 
 import com.web.sample_web.dao.MemberDao;
-import com.web.sample_web.entity.Member;
-import com.web.sample_web.repository.MemberRepository;
+import com.web.sample_web.entity.Members;
+import com.web.sample_web.repository.MembersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,25 +17,25 @@ import java.util.List;
 public class MemberDaoImpl implements MemberDao {
 
     @Autowired
-    MemberRepository memberRepository;
+    MembersRepository memberRepository;
 
     @Override
-    public Member saveMember(Member m) {
+    public Members saveMember(Members m) {
         return memberRepository.save(m);
     }
 
     @Override
-    public Member getByUserName(String userName) {
+    public Members getByUserName(String userName) {
         return memberRepository.findByUserName(userName);
     }
 
     @Override
-    public Member getByUserNameAndPassword(String userName, String password) {
+    public Members getByUserNameAndPassword(String userName, String password) {
         return memberRepository.findByUserNameAndPassword(userName,password);
     }
 
     @Override
-    public List<Member> getAllMember() {
+    public List<Members> getAllMember() {
         return memberRepository.findAll();
     }
 
@@ -46,5 +48,10 @@ public class MemberDaoImpl implements MemberDao {
     @Override
     public Long memberCount() {
         return memberRepository.count();
+    }
+
+    @Override
+    public Page<Members> getAllMembersPage(Pageable pageable) {
+        return memberRepository.findAll(pageable);
     }
 }

@@ -5,6 +5,9 @@ import com.web.sample_web.entity.Book;
 import com.web.sample_web.entity.Comment;
 import com.web.sample_web.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +38,12 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
+    public Page<Book> getAllBookPagination(Pageable pageable) {
+        Page<Book> all = bookRepository.findAll(pageable);
+        return all;
+    }
+
+    @Override
     @Transactional
     public Integer deleteBookById(int id) {
        return bookRepository.deleteByBookId(id);
@@ -58,5 +67,9 @@ public class BookDaoImpl implements BookDao {
         return book.getBookCode();
     }
 
-
+    @Override
+    public Integer updateBook(Book book) {
+       // bookRepository.save()
+        return null;
+    }
 }

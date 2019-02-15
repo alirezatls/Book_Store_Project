@@ -1,26 +1,31 @@
-package com.web.sample_web.util;
+package com.web.sample_web.security;
 
-import com.web.sample_web.entity.Member;
+import com.web.sample_web.entity.AuthMember;
+import com.web.sample_web.entity.Members;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
-/*
-convert a Member Object to a Principal cuz spring security works with principals not member
- */
 public class MemberPrincipal implements UserDetails {
 
-    private Member member;
+    private Members member;
+    private List<AuthMember> authMember;
 
-    public MemberPrincipal(Member member) {
+    public MemberPrincipal(Members member, List<AuthMember> authMember) {
         this.member = member;
+        this.authMember = authMember;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-       return Collections.singleton(new SimpleGrantedAuthority("USER"));
+        if (authMember == null) {
+            return Collections.emptySet();
+        }
+        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+        authMember.forEach(auth -> authorities.add(new SimpleGrantedAuthority(auth.getAuthGroup())));
+        return authorities;
     }
 
     @Override

@@ -1,22 +1,26 @@
 package com.web.sample_web.dao;
 
-import com.web.sample_web.entity.Member;
+import com.web.sample_web.entity.Members;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface MemberDao {
 
-    Member saveMember(Member m);
+    Members saveMember(Members m);
 
-    Member getByUserName(String userName);
+    Members getByUserName(String userName);
 
-    Member getByUserNameAndPassword(String userName, String password);
+    Members getByUserNameAndPassword(String userName, String password);
 
-    List<Member> getAllMember();
+    List<Members> getAllMember();
 
     Integer deleteMemberById(int id);
 
     Long memberCount();
+
+    Page<Members> getAllMembersPage(Pageable pageable);
 
 
 

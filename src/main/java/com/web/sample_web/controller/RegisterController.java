@@ -1,12 +1,13 @@
 package com.web.sample_web.controller;
 
 import com.web.sample_web.dao.MemberDao;
-import com.web.sample_web.entity.Member;
+import com.web.sample_web.entity.Members;
 import com.web.sample_web.exception.UniqueUsernameException;
 import com.web.sample_web.service.MemberService;
 import com.web.sample_web.util.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -27,20 +28,18 @@ public class RegisterController {
     @Autowired
     MailService mailService;
 
-    @Autowired
-    ApplicationEventPublisher eventPublisher;
 
     @Autowired
     MemberService memberService;
 
     @GetMapping(value = "/register")
     public String showRegisterPage(ModelMap modelMap) {
-        modelMap.addAttribute("mem", new Member());
+        modelMap.addAttribute("mem", new Members());
         return "register";
     }
 
     @PostMapping(value = "/performRegister")
-    public ModelAndView addNewMember(@ModelAttribute("mem") @Valid Member mem,
+    public ModelAndView addNewMember(@ModelAttribute("mem") @Valid Members mem,
                                      BindingResult result,
                                      WebRequest request,
                                      ModelMap modelMap) {
@@ -51,9 +50,9 @@ public class RegisterController {
             return modelAndView;
         }
 
-        Member userName = memberDao.getByUserName(mem.getUserName());
+        Members userName = memberDao.getByUserName(mem.getUserName());
         if(userName == null) {
-            Member m = memberDao.saveMember(mem);
+            Members m = memberDao.saveMember(mem);
             if (m != null) {
                 // mailService.sendEmail("alirezatl135@gmail.com","simple","from alireza");
                 String appUrl = request.getContextPath();

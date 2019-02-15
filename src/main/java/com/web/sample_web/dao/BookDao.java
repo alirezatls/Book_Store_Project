@@ -2,6 +2,8 @@ package com.web.sample_web.dao;
 
 import com.web.sample_web.entity.Book;
 import com.web.sample_web.entity.Comment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -13,6 +15,8 @@ public interface BookDao {
 
     List<Book> getAllBook();
 
+    Page<Book> getAllBookPagination(Pageable pageable);
+
     Integer deleteBookById(int id);
 
     Long bookCount();
@@ -20,4 +24,6 @@ public interface BookDao {
     Book getByBookCode(String bookCode);
 
     String addCommentForBook(String code,Comment comment);
+
+    Integer updateBook(Book book);
 }

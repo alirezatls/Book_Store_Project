@@ -1,6 +1,6 @@
 package com.web.sample_web.repository;
 
-import com.web.sample_web.entity.Member;
+import com.web.sample_web.entity.Members;
 import com.web.sample_web.entity.VerificationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -8,5 +8,5 @@ public interface VerificationTokenRepository extends JpaRepository<VerificationT
 
     VerificationToken findByToken(String token);
 
-    VerificationToken findByMember(Member member);
+    VerificationToken findByMember(Members member);
 }

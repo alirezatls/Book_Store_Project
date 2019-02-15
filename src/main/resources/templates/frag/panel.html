@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body>
+<ul th:fragment="panel" class="nav nav-tabs justify-content-center" style="background-color: whitesmoke">
+    <li class="nav-item">
+        <a class="nav-link" href="/admin">Manage Products</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/members">Manage Users</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Manage Comments</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/addBookPage">Add Product</a>
+    </li>
+</ul>
+    <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</body>
+</html>

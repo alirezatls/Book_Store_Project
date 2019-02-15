@@ -1,6 +1,6 @@
 package com.web.sample_web.controller;
 
-import com.web.sample_web.entity.Member;
+import com.web.sample_web.entity.Members;
 import com.web.sample_web.entity.VerificationToken;
 import com.web.sample_web.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class ActiveRegistration {
             return "redirect:/error";
         }
 
-        Member member = verificationToken.getMember();
+        Members member = verificationToken.getMember();
 
         member.setEnabled(true);
         memberService.saveRegisteredMember(member);

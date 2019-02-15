@@ -4,6 +4,7 @@ import com.web.sample_web.dao.BookDao;
 import com.web.sample_web.dao.CommentDao;
 import com.web.sample_web.entity.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ public class CommentController {
     BookDao bookDao;
 
     @PostMapping(path = "/addComment")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public String addComment(@RequestParam(name = "comment") String comment,
                              @RequestParam(name = "commentName") String commentName,
                              @RequestParam(name = "code") String code) {
