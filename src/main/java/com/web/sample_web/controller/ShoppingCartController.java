@@ -30,9 +30,15 @@ public class ShoppingCartController {
         ModelAndView modelAndView = new ModelAndView("orders");
         if (session.getAttribute("orderBook") == null) {
             List<Book> list = new ArrayList<>();
+            for(Book book: list) {
+                book.setPicBase64(Base64.getEncoder().encodeToString(book.getBookPicture()));
+            }
             session.setAttribute("orderBook",list);
         } else {
             List<Book> list = (List<Book>) session.getAttribute("orderBook");
+            for(Book book: list) {
+                book.setPicBase64(Base64.getEncoder().encodeToString(book.getBookPicture()));
+            }
             modelAndView.addObject("total",orderService.totalPrice(list));
             modelAndView.addObject("count",orderService.count(list));
         }
