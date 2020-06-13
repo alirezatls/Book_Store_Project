@@ -1,46 +1,39 @@
 package com.web.sample_web.controller;
 
-import com.web.sample_web.dao.BookDao;
-import com.web.sample_web.entity.Book;
-import com.web.sample_web.service.CartService;
+import com.web.sample_web.domain.Book;
+import com.web.sample_web.service.BookService;
 import com.web.sample_web.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Controller
-//@SessionAttributes(value = {"orderBook"})
+@AllArgsConstructor
 public class ShoppingCartController {
+    private final BookService service;
+    private final OrderService orderService;
 
-    @Autowired
-    BookDao bookDao;
 
-    @Autowired
-    CartService cartService;
-
-    @Autowired
-    OrderService orderService;
-
-    @RequestMapping(value = "/cart", method = RequestMethod.GET)
+    @RequestMapping(value = "/cart", method = GET)
     public ModelAndView showMyCart(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView("orders");
         if (session.getAttribute("orderBook") == null) {
             List<Book> list = new ArrayList<>();
-            for(Book book: list) {
-                book.setPicBase64(Base64.getEncoder().encodeToString(book.getBookPicture()));
-            }
-            session.setAttribute("orderBook",list);
+            session.setAttribute("orderBook", list);
         } else {
             List<Book> list = (List<Book>) session.getAttribute("orderBook");
-            for(Book book: list) {
-                book.setPicBase64(Base64.getEncoder().encodeToString(book.getBookPicture()));
-            }
-            modelAndView.addObject("total",orderService.totalPrice(list));
-            modelAndView.addObject("count",orderService.count(list));
+            modelAndView.addObject("total", orderService.totalPrice(list));
+            modelAndView.addObject("count", orderService.count(list));
         }
 
         return modelAndView;
@@ -48,21 +41,30 @@ public class ShoppingCartController {
 
     @GetMapping(path = "cart/add/{bookId}")
     public String addBookToCart(@PathVariable Integer bookId, HttpSession session) {
-        Book book = bookDao.getBookById(bookId);
-        List<Book> list = (List<Book>) session.getAttribute("orderBook");
-        orderService.addBook(book,list);
-        session.setAttribute("orderBook",list);
-        return "redirect:/books/"+book.getBookCode();
+        Book book = service.getBookById(bookId);
+        List<Book> list = check(session);
+        orderService.addBook(book, list);
+        session.setAttribute("orderBook", list);
+        return "redirect:/books/";
     }
 
 
-    @RequestMapping(value = "/cart/remove/{bookId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/cart/remove/{bookId}", method = GET)
     public String deleteBookFromCart(@PathVariable("bookId") Integer bookId, HttpSession session) {
         List<Book> orderBook = (List<Book>) session.getAttribute("orderBook");
-        //Book exist = cartService.exist(bookId, orderBook);
         Optional<Book> exist = orderService.exist(bookId, orderBook);
-        //cartService.removeBook(exist,orderBook);
-        orderService.removeBook(exist.orElseThrow(IllegalStateException::new),orderBook);
+        orderService.removeBook(exist.orElseThrow(IllegalStateException::new), orderBook);
         return "redirect:/cart";
+    }
+
+    private List<Book> check(HttpSession session) {
+        List<Book> list;
+        if (session.getAttribute("orderBook") == null) {
+            list = new ArrayList<>();
+            session.setAttribute("orderBook", list);
+        } else {
+            list = (List<Book>) session.getAttribute("orderBook");
+        }
+        return list;
     }
 }

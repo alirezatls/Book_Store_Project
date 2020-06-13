@@ -1,6 +1,6 @@
 package com.web.sample_web.service.impl;
 
-import com.web.sample_web.entity.Book;
+import com.web.sample_web.domain.Book;
 import com.web.sample_web.service.OrderService;
 import org.springframework.stereotype.Service;
 
@@ -38,12 +38,12 @@ public class OrderServiceImpl implements OrderService {
     public Integer totalPrice(List<Book> bookList) {
         Long aLong = bookList.stream().
                 map(Book::getCost).
-                reduce(0L, (l1, l2) -> l1 + l2);
+                reduce(0L, Long::sum);
         return aLong.intValue();
     }
 
     @Override
     public Integer count(List<Book> list) {
-        return (int)list.stream().count();
+        return list.size();
     }
 }

@@ -1,6 +1,6 @@
 package com.web.sample_web.repository;
 
-import com.web.sample_web.entity.Members;
+import com.web.sample_web.domain.Members;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MembersRepository extends JpaRepository<Members,Integer> {

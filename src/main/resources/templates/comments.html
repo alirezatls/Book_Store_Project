@@ -8,41 +8,42 @@
 </head>
 <body>
 <header th:replace="frag/nav::nav">
-</header><br><br><br>
+</header>
+<br><br><br>
 
 <div class="container">
     <div th:replace="frag/panel">
-    </div><br>
-    <table class="table table-active table-bordered table-responsive">
+    </div>
+    <br>
+    <table class="table table-bordered">
         <thead>
-            <tr>
-                <th>TEXT</th>
-                <th>OWNER</th>
-                <th>DATE</th>
-            </tr>
+        <tr>
+            <th>BOOK</th>
+            <th>TEXT</th>
+            <th>USER</th>
+            <th>DATE</th>
+        </tr>
         </thead>
         <tbody>
-            <tr th:each="comment: ${comments}">
-                <td>
-                    <div class="card">
-                        <div class="card-header">
-                            <p class="card-text" th:text="${comment.text}"></p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <p th:text="${comment.commentOwner}"></p>
-                </td>
-                <td>
-                    <p th:text="${comment.date}"></p>
-                </td>
-                <td>
-                    <a class="btn btn-link" href="">Delete</a>
-                </td>
-            </tr>
+        <tr th:each="comment: ${comments}">
+            <td>
+                <img th:src="${comment.book.url}" alt="image"  style="height: 200px;width: 200px">
+            </td>
+            <td>
+                <p class="card-text" th:text="${comment.text}"></p>
+            </td>
+            <td>
+                <p th:text="${comment.commentOwner}"></p>
+            </td>
+            <td>
+                <p th:text="${comment.date}"></p>
+            </td>
+            <td>
+                <a class="btn btn-outline-primary"  th:href="@{'/admin/comment/'+${comment.id}}">Delete</a>
+            </td>
+        </tr>
         </tbody>
     </table>
-
 </div>
 
 <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>

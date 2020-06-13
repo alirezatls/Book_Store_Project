@@ -1,7 +1,7 @@
 package com.web.sample_web.security;
 
-import com.web.sample_web.entity.AuthMember;
-import com.web.sample_web.entity.Members;
+import com.web.sample_web.domain.AuthMember;
+import com.web.sample_web.domain.Members;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,8 +10,8 @@ import java.util.*;
 
 public class MemberPrincipal implements UserDetails {
 
-    private Members member;
-    private List<AuthMember> authMember;
+    private final Members member;
+    private final List<AuthMember> authMember;
 
     public MemberPrincipal(Members member, List<AuthMember> authMember) {
         this.member = member;

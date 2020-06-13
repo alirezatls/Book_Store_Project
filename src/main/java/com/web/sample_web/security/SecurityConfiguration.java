@@ -1,6 +1,5 @@
 package com.web.sample_web.security;
 
-import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -21,20 +19,25 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private final MemberPrincipalService principalService;
+
     @Autowired
-    private MemberPrincipalService principalService;
+    public SecurityConfiguration(MemberPrincipalService principalService) {
+        this.principalService = principalService;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/webjars/**","/images/**","/","/welcome","/cart/**","/register","/performRegister","/reset","/error","/books","/regitrationConfirm")
+                .antMatchers("/webjars/**", "/images/**", "/", "/welcome", "/cart/**", "/register",
+                        "/performRegister", "/reset", "/error", "/books", "/regitrationConfirm")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/welcome",true)
+                .defaultSuccessUrl("/welcome", true)
                 .and()
                 .logout().invalidateHttpSession(true)
                 .clearAuthentication(true)

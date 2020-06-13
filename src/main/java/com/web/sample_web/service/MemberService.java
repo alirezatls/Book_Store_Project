@@ -1,60 +1,27 @@
 package com.web.sample_web.service;
 
-import com.web.sample_web.entity.Members;
-import com.web.sample_web.entity.VerificationToken;
-import com.web.sample_web.repository.MembersRepository;
-import com.web.sample_web.repository.VerificationTokenRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.web.sample_web.domain.Members;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-@Service
-public class MemberService {
+import java.util.List;
 
-    @Autowired
-    MembersRepository memberRepository;
+public interface MemberService {
+    Members saveMember(Members m);
 
-    @Autowired
-    VerificationTokenRepository verificationTokenRepository;
+    Members getByUserName(String userName);
 
+    Members getByUserNameAndPassword(String userName, String password);
 
-    public Members registerNewMemberAccount(Members member)
-            throws IllegalStateException {
+    List<Members> getAllMember();
 
-        if (emailExist(member.getEmail())) {
-            throw new IllegalStateException(
-                    "There is an account with that email adress: "
-                            + member.getEmail());
-        }
+    Integer deleteMemberById(int id);
 
-        return memberRepository.save(member);
-    }
+    Long memberCount();
 
-    private boolean emailExist(String email) {
-        Members member = memberRepository.findByEmail(email);
-        if (member != null) {
-            return true;
-        }
-        return false;
-    }
+    Page<Members> getAllMembersPage(Pageable pageable);
 
-    public Members getMember(String verificationToken) {
-        Members member = verificationTokenRepository.findByToken(verificationToken).getMember();
-        return member;
-    }
+    Members registerNewMemberAccount(Members member) throws IllegalStateException;
 
-
-    public VerificationToken getVerificationToken(String VerificationToken) {
-        return verificationTokenRepository.findByToken(VerificationToken);
-    }
-
-
-    public void saveRegisteredMember(Members member) {
-        memberRepository.save(member);
-    }
-
-    //saved token to database
-    public void createVerificationToken(Members member, String token) {
-        VerificationToken myToken = new VerificationToken(token, member);
-        verificationTokenRepository.save(myToken);
-    }
+    void saveRegisteredMember(Members member);
 }

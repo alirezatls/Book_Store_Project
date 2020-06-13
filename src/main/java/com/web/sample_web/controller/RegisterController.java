@@ -1,36 +1,25 @@
 package com.web.sample_web.controller;
 
-import com.web.sample_web.dao.MemberDao;
-import com.web.sample_web.entity.Members;
-import com.web.sample_web.exception.UniqueUsernameException;
+import com.web.sample_web.domain.Members;
+import com.web.sample_web.service.exception.UniqueUsernameException;
 import com.web.sample_web.service.MemberService;
-import com.web.sample_web.util.MailService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.web.sample_web.service.bean.MemberRequest;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.UUID;
 
 @Controller
+@AllArgsConstructor
 public class RegisterController {
 
-
-    @Autowired
-    MemberDao memberDao;
-
-    @Autowired
-    MailService mailService;
-
-
-    @Autowired
-    MemberService memberService;
+    private final MemberService memberService;
 
     @GetMapping(value = "/register")
     public String showRegisterPage(ModelMap modelMap) {
@@ -39,50 +28,28 @@ public class RegisterController {
     }
 
     @PostMapping(value = "/performRegister")
-    public ModelAndView addNewMember(@ModelAttribute("mem") @Valid Members mem,
-                                     BindingResult result,
-                                     WebRequest request,
-                                     ModelMap modelMap) {
-
+    public ModelAndView addNewMember(@ModelAttribute("mem") @Valid MemberRequest mem, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView();
         if (result.hasErrors()) {
             modelAndView.setViewName("register");
             return modelAndView;
         }
-
-        Members userName = memberDao.getByUserName(mem.getUserName());
-        if(userName == null) {
-            Members m = memberDao.saveMember(mem);
-            if (m != null) {
-                // mailService.sendEmail("alirezatl135@gmail.com","simple","from alireza");
-                String appUrl = request.getContextPath();
-
-                //pass registered mem , locale , context path
-                //eventPublisher.publishEvent(new OnRegistrationCompleteEvent(m,request.getLocale(),appUrl));
-                String token = UUID.randomUUID().toString();
-
-                //save to database
-                memberService.createVerificationToken(m, token);
-
-                //email address
-                String recipientAddress = m.getEmail();
-                //email subject
-                String subject = "Registration Confirmation";
-                //email message
-                String confirmationUrl
-                        = appUrl + "/regitrationConfirm?token=" + token;
-                //String message = messages.getMessage("message.regSucc", null, event.getLocale());
-
-                mailService.sendEmail(recipientAddress,subject,"http://localhost:9000" + confirmationUrl);
-
-                modelAndView.setViewName("confirm_registration");
-            }
+        Members userName = memberService.getByUserName(mem.getUserName());
+        if (userName == null) {
+            memberService.saveMember(toMember(mem));
         } else {
             throw new UniqueUsernameException();
         }
 
-
-            return modelAndView;
+        modelAndView.setViewName("confirm_registration");
+        return modelAndView;
     }
 
+    private Members toMember(MemberRequest req) {
+        return Members.builder().name(req.getName())
+                .userName(req.getUserName())
+                .password(req.getPassword())
+                .email(req.getEmail())
+                .build();
+    }
 }

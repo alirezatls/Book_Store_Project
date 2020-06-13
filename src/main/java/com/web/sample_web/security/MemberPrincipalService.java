@@ -1,7 +1,7 @@
 package com.web.sample_web.security;
 
-import com.web.sample_web.entity.AuthMember;
-import com.web.sample_web.entity.Members;
+import com.web.sample_web.domain.AuthMember;
+import com.web.sample_web.domain.Members;
 import com.web.sample_web.repository.AuthMemberRepository;
 import com.web.sample_web.repository.MembersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,8 @@ import java.util.List;
 @Service
 public class MemberPrincipalService implements UserDetailsService {
 
-    private MembersRepository memberRepository;
-    private AuthMemberRepository authMemberRepository;
+    private final MembersRepository memberRepository;
+    private final AuthMemberRepository authMemberRepository;
 
     @Autowired
     public MemberPrincipalService(MembersRepository memberRepository, AuthMemberRepository authMemberRepository) {

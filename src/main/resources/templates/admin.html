@@ -8,40 +8,37 @@
 </head>
 <body>
 <header th:replace="frag/nav::nav">
-</header><br><br><br>
+</header>
+<br><br><br>
 <div class="container">
     <div th:replace="frag/panel">
     </div>
     <br>
     <table class="table tab-pane shadow">
         <thead>
-            <tr>
-                <th>NAME</th>
-                <th>AUTHOR</th>
-                <th>PRICE</th>
-                <th>PUBLISHER</th>
-                <th>PAGES</th>
-                <th>PICTURE</th>
-            </tr>
+        <tr>
+            <th>NAME</th>
+            <th>AUTHOR</th>
+            <th>PRICE</th>
+            <th>PUBLISHER</th>
+            <th>PAGES</th>
+            <th>PICTURE</th>
+        </tr>
         </thead>
-        <tbody class="lead">
-            <tr th:each="book: ${page.getContent()}">
-                <td th:text="${book.bookName}"></td>
-                <td th:text="${book.bookAuthor}"></td>
-                <td th:text="${book.cost}"></td>
-                <td th:text="${book.publisher}"></td>
-                <td th:text="${book.pageNumber}"></td>
-                <td>
-                    <img th:src="@{'data:image/jpeg;base64,'+${book.picBase64}}" class="img-fluid img-thumbnail"  style="height: 100px;width: 80px">
-                </td>
-                <td>
-                    <a class="float-right btn btn-danger" th:href="@{'/deleteBook/'+${book.bookCode}}">Delete It</a>
-                </td>
-
-                <td>
-                    <a class="btn btn-outline-success" th:href="@{'/updateBook/'+${book.bookCode}}">Update</a>
-                </td>
-            </tr>
+        <tbody>
+        <tr th:each="book: ${page.getContent()}">
+            <td th:text="${book.bookName}"></td>
+            <td th:text="${book.bookAuthor}"></td>
+            <td th:text="${book.cost}"></td>
+            <td th:text="${book.publisher}"></td>
+            <td th:text="${book.pageNumber}"></td>
+            <td>
+                <img th:src="${book.url}" class="img-fluid img-thumbnail" style="height: 100px;width: 80px">
+            </td>
+            <td>
+                <a class="float-right btn btn-outline-danger" th:href="@{'/deleteBook/'+${book.bookCode}}">Delete It</a>
+            </td>
+        </tr>
         </tbody>
     </table>
     <ul class="pagination justify-content-center">
@@ -62,99 +59,3 @@
 <script src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-<!--
-
-  <button class="btn btn-danger" data-toggle="modal" data-target="#myMod">Login</button>
-
-        <div id="myMod" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <img style="height: 250px;margin:0 auto;border-radius: 200px"
-                             class="img-fluid justify-content-center" src="../../static/images/avatar.png"
-                             th:src="@{images/avatar.png}"/>
-                        <button class="btn btn-success" type="button" data-dismiss="modal">X</button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/performLogin" method="post">
-                            <fieldset class="form-group row">
-                                <label class="col-sm-2">UserName</label>
-                                <div class="col-sm-12">
-                                    <input class="form-control" placeholder="Enter Username" type="text" name="userName"
-                                           required>
-                                </div>
-                            </fieldset>
-                            <fieldset class="form-group row">
-                                <label class="col-sm-2">Password</label>
-                                <div class="col-sm-12">
-                                    <input class="form-control" placeholder="Enter Password" type="password"
-                                           name="password" required>
-                                </div>
-                            </fieldset>
-                            <input type="submit" class="btn btn-success" value="Login"/>
-                            <a class="btn btn-link" href="#">Forgot password</a>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-
-
-        <form method="post" action="/addBookPerform" enctype="multipart/form-data">
-    <fieldset class="form-group row">
-        <label class="col-sm-2">Book Name</label>
-        <div class="col-sm-4">
-        <input type="text" name="bookName" class="form-control" required>
-        </div>
-    </fieldset>
-    <fieldset class="form-group row">
-        <label class="col-sm-2">Book Author</label>
-        <div class="col-sm-4">
-        <input type="text" name="bookAuthor" class="form-control" required>
-        </div>
-    </fieldset>
-    <fieldset class="form-group row">
-        <label  class="col-sm-2">Price</label>
-        <div class="col-sm-4">
-        <input type="number" name="cost" class="form-control" required>
-        </div>
-    </fieldset>
-
-    <fieldset class="form-group row">
-        <label class="col-sm-2">Publisher</label>
-        <div class="col-sm-4">
-        <input type="text" name="publisher" class="form-control" required>
-        </div>
-    </fieldset>
-
-    <fieldset class="form-group row">
-        <label class="col-sm-2">Page Numbers</label>
-        <div class="col-sm-4">
-        <input type="number" name="pageNumber" class="form-control" required>
-        </div>
-    </fieldset>
-
-    <fieldset class="form-group row">
-        <label class="custom-file col-sm-2">Upload Image</label>
-       <input type="file" name="bookPicture" required>
-    </fieldset>
-
-    <fieldset class="form-group row">
-        <label class="col-sm-2">Details</label>
-        <div class="col-sm-4">
-        <textarea class="form-control" name="txt" placeholder="product informations .."></textarea>
-        </div>
-    </fieldset>
-
-            <button type="submit" class="btn btn-info">Submit</button>
-            <input type="reset" class="btn btn-warning">
-
-</form>
-
--->

@@ -1,9 +1,8 @@
 package com.web.sample_web.service;
 
-import com.web.sample_web.entity.Book;
+import com.web.sample_web.domain.Book;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public interface OrderService {

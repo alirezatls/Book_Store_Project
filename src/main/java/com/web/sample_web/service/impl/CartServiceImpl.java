@@ -1,6 +1,6 @@
 package com.web.sample_web.service.impl;
 
-import com.web.sample_web.entity.Book;
+import com.web.sample_web.domain.Book;
 import com.web.sample_web.service.CartService;
 import org.springframework.stereotype.Service;
 import java.util.Map;
